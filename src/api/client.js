@@ -21,12 +21,14 @@ export const storage = {
 
 const publicEndpoints = ['/api/auth/login', '/api/auth/signup']
 
-// export const api = axios.create({
-//   baseURL: 'http://localhost:8080',
-// })
+const envBase = import.meta.env.VITE_API_URL?.trim()
+const defaultProdApi = 'https://jobpilot-ai-pa1k.onrender.com'
+const resolvedBaseURL =
+  envBase ||
+  (import.meta.env.DEV ? 'http://localhost:8080' : defaultProdApi)
 
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: resolvedBaseURL,
 })
 
 api.interceptors.request.use(
